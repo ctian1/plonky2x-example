@@ -1,5 +1,25 @@
 {
-    "preset": "plonky2",
-    "build_command": "mkdir build && cargo run --release build && mv ./target/release/circuit ./build/circuit",
-    "prove_command": "./build/circuit prove-wrapped --input-json input.json --wrapper-path /verifier-build"
+    "entrypoints": [
+        {
+            "name": "example",
+            "framework": "plonky2",
+            "base_dir": ".",
+            "build_command": "mkdir build && cargo run --release build && mv ./target/release/circuit ./build/circuit",
+            "prove_command": "./build/circuit prove-wrapped --input-json input.json --wrapper-path /verifier-build"
+        },
+        {
+            "name": "sync-committee",
+            "framework": "plonky2",
+            "base_dir": ".",
+            "build_command": "cargo run --release --bin sync-committee && mv ./release/sync-committee ./build/sync-committee",
+            "prove_command": "./build/mapreduce prove input.json"
+        },
+        {
+            "name": "example",
+            "framework": "plonky2",
+            "base_dir": ".",
+            "build_command": "rustup override set nightly && mkdir build && cargo run --release build && mv ./target/release/circuit ./build/circuit",
+            "prove_command": "./build/circuit prove --input-json input.json"
+        }
+    ]
 }
