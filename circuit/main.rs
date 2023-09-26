@@ -18,7 +18,6 @@ impl Circuit for U32AddFunction {
 }
 
 fn main() {
-    env::set_var("RUST_LOG", "info");
     VerifiableFunction::<U32AddFunction>::entrypoint();
 }
 
